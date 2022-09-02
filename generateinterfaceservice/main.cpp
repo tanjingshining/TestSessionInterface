@@ -22,12 +22,12 @@ int main(int argc, char *argv[])
 */
 
     Test *test = new Test();
-    DbusAdaptor *adaptor = new DbusAdaptor(test);
+//    DbusAdaptor *adaptor = new DbusAdaptor(test);
     QDBusConnection connect = QDBusConnection::sessionBus();
     connect.registerObject("/", test);
     connect.registerService("com.qt.example.dbus");
 
-    QObject::connect(test, &Test::printStrChanged, adaptor, &DbusAdaptor::strChanged);
+//    QObject::connect(test, &Test::printStrChanged, adaptor, &DbusAdaptor::strChanged);
 
     return a.exec();
 }
