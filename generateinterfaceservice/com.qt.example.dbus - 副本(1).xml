@@ -1,0 +1,26 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.qt.example.dbus">
+    <method name="printStr">
+      <arg type="s" direction="out"/>
+      <arg name="str" type="s" direction="in"/>
+    </method>
+    <method name="getMap">
+      <arg type="a{sv}" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+      <arg name="list" type="as" direction="in"/>
+    </method>
+    <method name="setstrContent">
+      <arg name="strContent" type="s" direction="in"/>
+    </method>
+    <method name="getStruct">
+      <arg name="MyStruct" type="a(i)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="MyStruct"/>
+    </method>
+    <property name="strContent" type="s" access="read">
+    </property>
+    <signal name="strChanged">
+        <arg name="str" type="s" direction="out"/>
+    </signal>
+  </interface>
+</node>

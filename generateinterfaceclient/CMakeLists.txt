@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(testsessioninterface LANGUAGES CXX)
+project(generateinterfaceclient LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -24,17 +24,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt5DBus)
+find_package(Qt5 COMPONENTS Widgets REQUIRED DBus)
 
-add_executable(testsessioninterface
+set(sources
     main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    #test_interface.cpp
+    #test_interface.h
     )
 
-target_link_libraries(testsessioninterface PRIVATE Qt5::Widgets Qt5::DBus)
+qt5_add_dbus_interface(sources com.qt.example.dbus.xml qtexampledbus_interface)
+#qt5_add_dbus_interface(sources org.ukui.KWin.Session.xml qtexampledbus_interface)
 
-add_subdirectory(generateinterfaceclient)
-add_subdirectory(generateinterfaceservice)
+if(ANDROID)
+  add_library(generateinterfaceclient SHARED ${sources})
+else()
+  add_executable(generateinterfaceclient ${sources})
+endif()
+
+target_link_libraries(generateinterfaceclient PRIVATE Qt5::Widgets Qt5::DBus)
